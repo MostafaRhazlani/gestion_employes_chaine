@@ -9,13 +9,29 @@
       $stmt = null;
     }
 
+    static public function getEmploye($data) {
+      $id = $data['id'];
+
+      try {
+          $query = 'SELECT * FROM employes WHERE id = :id';
+          $stmt = DB::connect()->prepare($query);
+          $stmt->execute(array(":id" => $id));
+          $employe = $stmt->fetch(PDO::FETCH_OBJ);
+          // die(print_r($employe));
+          return $employe;
+      } catch(PDOException $ex) {
+          echo 'Erreur' . $ex->getMessage();
+      }
+    }
+
     static public function add($data) {
-      $stmt = DB::connect()->prepare('INSERT INTO employes(nom,prenom,matricule,depart,poste,date_emb,statut) VALUES
+      $stmt = DB::connect()->prepare('INSERT INTO employes(nom, prenom, matricule, depart, poste, date_emb, statut) VALUES
         (:nom,:prenom,:matricule,:depart,:poste,:date_emb,:statut)');
       $stmt->bindParam(':nom',$data['nom']);
       $stmt->bindParam(':prenom',$data['prenom']);
       $stmt->bindParam(':matricule',$data['matricule']);
       $stmt->bindParam(':depart',$data['depart']);
+      $stmt->bindParam(':poste', $data['poste']);
       $stmt->bindParam(':date_emb',$data['date_emb']);
       $stmt->bindParam(':statut',$data['statut']);
 
@@ -23,6 +39,26 @@
         return 'ok';
       } else {
         return 'error';
+      }
+      // $stmt->close();
+      $stmt = null;
+    }
+
+    static public function update($data) {
+      $stmt = DB::connect()->prepare('UPDATE employes SET nom = :nom, prenom = :prenom, matricule = :matricule, depart = :depart, poste = :poste, date_emb = :date_emb, statut = :statut WHERE id = :id');
+      $stmt->bindParam(':id',$data['id']);
+      $stmt->bindParam(':nom',$data['nom']);
+      $stmt->bindParam(':prenom',$data['prenom']);
+      $stmt->bindParam(':matricule',$data['matricule']);
+      $stmt->bindParam(':depart',$data['depart']);
+      $stmt->bindParam(':poste', $data['poste']);
+      $stmt->bindParam(':date_emb',$data['date_emb']);
+      $stmt->bindParam(':statut',$data['statut']);
+
+      if($stmt->execute($data)){
+        return 'ok';
+      } else {
+        return 'erreur';
       }
       // $stmt->close();
       $stmt = null;
