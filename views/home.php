@@ -1,20 +1,35 @@
 <?php 
-  // echo "page home";
-  $data = new employesController();
-  $employes = $data->getAllEmployes();
-  // print_r($employes);
+  if(isset($_POST['search'])) {
+    $data = new employesController();
+    $employes = $data->findEmployes();
+  } else {
+    $data = new employesController();
+    $employes = $data->getAllEmployes();
+  }
+  
 
 ?>
 
 <div class="container">
   <div class="row my-5">
     <div class="col-md-10 mx-auto">
+      <?php include('./views/includes/alerts.php'); ?>
       <div class="card">
+      <div class="card-header bg-primary text-light">Gestion employes</div>
         <div class="card-body bg-light">
-          <a href="<?php echo BASE_URL; ?>?page=add" class="btn btn-sm btn-primary ms-2 mb-2">
-            <i class="fas fa-plus"></i>
-          </a>
-          <table class="table table-hover">
+            <a href="<?php echo BASE_URL; ?>?page=add" class="btn btn-sm btn-primary ms-2 mb-2">
+              <i class="fas fa-plus"></i>
+            </a>
+            <a href="<?php echo BASE_URL; ?>?page=home" class="btn btn-sm btn-secondary ms-2 mb-2">
+              <i class="fas fa-home"></i>
+            </a>
+            <form method="post" class="float-end mb-2 d-flex flex-row ">
+              <input type="text" name="search" placeholder="Recherche" class="form-control">
+              <button type="submit" class="btn btn-info btn-sm" name="find">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+          <table class="table table-hover">  
             <thead>
               <tr>
                 <th scope="col">Nom & Prénom</th>
@@ -49,7 +64,7 @@
                         <i class="fa fa-edit"></i>
                       </button>
                     </form>
-                    <form action="?page=delete" method="post" class="mr-1">
+                    <form action="?page=delete" method="post" class="mr-1" onclick="return confirm('واش باغي تمحي هاذ الخرا ولا لا')">
                       <input type="hidden" name="id" value="<?php echo $employe['id'];?>">
                       &nbsp;
                       <button class="btn btn-sm btn-warning">
