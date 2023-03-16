@@ -78,6 +78,19 @@
           echo 'Erreur' . $ex->getMessage();
       }
     }
+
+    static public function searchEmployes($data) {
+      $search = $data['search'];
+
+      try {
+          $query = 'SELECT * FROM employes WHERE nom LIKE ? OR prenom LIKE ?';
+          $stmt = DB::connect()->prepare($query);
+          $stmt->execute(array('%'.$search.'%', '%'.$search.'%'));
+          return $stmt->fetchAll();
+      } catch(PDOException $ex) {
+          echo 'Erreur' . $ex->getMessage();
+      }
+    }
   }
 
 ?>
