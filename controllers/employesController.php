@@ -22,7 +22,8 @@
         $result = employe::add($data);
 
         if($result === 'ok') {
-          header('location:' . BASE_URL);
+          session::set('success', 'Employé Ajouté');
+          redirect::to('?page=home');
         } else {
           echo $result;
         }
@@ -55,10 +56,33 @@
 
         $result = employe::update($data);
         if($result === 'ok') {
-          header('location:' . BASE_URL);
+          session::set('success', 'Employé Modifié');
+          redirect::to('?page=home');
         } else {
           echo $result;
         }
+      }
+    }
+
+    public function deleteEmploye() {
+      if(isset($_POST['id']))
+      $data['id'] = $_POST['id'];
+
+      $result = employe::delete($data);
+      if($result === 'ok') {
+        session::set('success', 'Employé Supprimé');
+        redirect::to('?page=home');
+      } else {
+        echo $result;
+      }
+    }
+
+    public function findEmployes() {
+      if(isset($_POST['search'])) {
+        $data = array('search' => $_POST['search']);
+        $employes = employe::searchEmployes($data);
+        // die(print_r($employes));
+        return $employes;
       }
     }
   }
