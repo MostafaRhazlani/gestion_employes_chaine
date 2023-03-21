@@ -12,7 +12,7 @@
       <div class="card">
         <div class="card-header bg-secondary">Ajouter un employé</div>
         <div class="card-body bg-light">
-          <a href="<?php echo BASE_URL; ?>?page=add" class="btn btn-sm btn-secondary ms-2 mb-2">
+          <a href="<?php echo BASE_URL; ?>?page=home" class="btn btn-sm btn-secondary ms-2 mb-2">
             <i class="fas fa-home"></i>
           </a>
             <form action="" method="post">
