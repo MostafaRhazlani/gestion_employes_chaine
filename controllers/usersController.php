@@ -10,11 +10,11 @@
 
           if($result->username === $_POST['username'] && password_verify($_POST['password'], $result->password)) {
             $_SESSION['logged'] = true;
-            $_SESSION['username'] = true;
+            $_SESSION['username'] = $result->username;
             redirect::to('?page=home');
           } else {
             session::set('danger', 'Pseudo ou mot de passe est incorrect');
-            redirect::to('?page=home');
+            redirect::to('?page=login');
         }
 
       }

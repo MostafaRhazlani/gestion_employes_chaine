@@ -6,8 +6,6 @@
     $data = new employesController();
     $employes = $data->getAllEmployes();
   }
-  
-
 ?>
 
 <div class="container">
@@ -22,6 +20,9 @@
             </a>
             <a href="<?php echo BASE_URL; ?>?page=home" class="btn btn-sm btn-secondary ms-2 mb-2">
               <i class="fas fa-home"></i>
+            </a>
+            <a href="<?php echo BASE_URL; ?>?page=logout" class="btn btn-link ms-2 mb-2">
+              <i class="fas fa-user"> <?php echo $_SESSION['username']; ?></i>
             </a>
             <form method="post" class="float-end mb-2 d-flex flex-row ">
               <input type="text" name="search" placeholder="Recherche" class="form-control">
