@@ -65,7 +65,7 @@
                         <i class="fa fa-edit"></i>
                       </button>
                     </form>
-                    <form action="?page=delete" method="post" class="mr-1" onclick="return confirm('واش باغي تمحي هاذ الخرا ولا لا')">
+                    <form action="?page=delete" method="post" class="mr-1" onclick="return confirm('are you sure you want delete this')">
                       <input type="hidden" name="id" value="<?php echo $employe['id'];?>">
                       &nbsp;
                       <button class="btn btn-sm btn-warning">
